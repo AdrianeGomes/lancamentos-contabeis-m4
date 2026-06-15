@@ -287,6 +287,16 @@ function iniciarComCadastro() {
 }
 
 // =============================================
+//  SALDOS INICIAIS HERDADOS DO MÓDULO 3
+// =============================================
+const saldosIniciais = {
+  banco:        { lado: "debito",  valor: 53500 },
+  estoques:     { lado: "debito",  valor: 59000 },
+  fornecedores: { lado: "credito", valor: 12500 },
+  clientes:     { lado: "debito",  valor: 2000  },
+};
+
+// =============================================
 //  INICIALIZAÇÃO
 // =============================================
 function initGame() {
@@ -299,6 +309,26 @@ function initGame() {
   selectedCardId    = null;
   document.getElementById("razonetesGrid").innerHTML = "";
   updateScoreDisplay();
+
+  // Criar razonetes com saldos herdados do M3
+  Object.entries(saldosIniciais).forEach(([conta, ini]) => {
+    visibleRazonetes.push(conta);
+    addRazonete(conta);
+    if (!razoneteSaldos[conta]) razoneteSaldos[conta] = { debito: 0, credito: 0 };
+    razoneteSaldos[conta][ini.lado] += ini.valor;
+    const col = document.getElementById(`raz-${conta}-${ini.lado}`);
+    if (col) {
+      const entry = document.createElement("div");
+      entry.className = "raz-entry raz-entry-herdado";
+      entry.innerHTML = `
+        <span class="raz-val">R$&nbsp;${format(ini.valor)}</span>
+        <span class="raz-herdado-label">↩ Saldo M3</span>
+      `;
+      col.appendChild(entry);
+    }
+    updateSaldo(conta);
+  });
+
   loadLancamento();
 }
 

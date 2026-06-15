@@ -277,7 +277,9 @@ h1, h2, h3 { color: #0b2a5b; margin: 0 0 8px; }
   transition: background 0.4s;
 }
 
-.raz-entry-new { background: #c8e6c9; }
+.raz-entry-new     { background: #c8e6c9; }
+.raz-entry-herdado { background: #f0f0f0; color: #888 !important; font-style: italic; }
+.raz-herdado-label { display: block; font-size: 9px; color: #aaa; margin-top: 1px; }
 .raz-val { display: block; }
 
 .raz-saldo {
